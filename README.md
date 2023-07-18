@@ -28,6 +28,5 @@ Since the code is written in Fortran, it should be executed on a machine with a 
 
 [1] ESPResSo on Github; https://github.com/espressomd/espresso. \
 [2] Y. Sakai, M. Tachikawa, A. Mochizuki, A simple model for eukaryotic chromosome segregation, Phys. Rev. E 2016, 94(4-1):042403.\
-[3] Y. Sakai, A. Mochizuki, K. konoshita, T. hirano, M. Tachikawa, Modeling the functions of condensin in chromosome shaping and \
-　segregation, PLoS. Comp. Biol. 2018, 18;14(6):e1006152. \
+[3] Y. Sakai, A. Mochizuki, K. konoshita, T. Hirano, M. Tachikawa, Modeling the functions of condensin in chromosome shaping and　segregation, PLoS. Comp. Biol. 2018, 18;14(6):e1006152. \
 [4] Y. Sakai, Molecular Dynamics Simulations of Condensin-Mediated Mitotic Chromosome Assembly, Meth. Mol Biol. 2019, 2004:319-334.
