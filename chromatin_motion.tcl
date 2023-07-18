@@ -11,6 +11,7 @@ set loop_extrusion 1
 set condensin_deletion 0
 set box_constraint 0
 
+set para "_loop_ext=1_cond_del=0_box_const=0"
 
 
 ##############
@@ -35,11 +36,12 @@ thermostat langevin $tempe $gamma
 #  Time Evolution  #
 ####################
 set after_loop_time  10
-set after_cond_del_time 600
-set msd_time 100
+set after_cond_del_time 10
+set msd_calculation_time 100
 
 puts "after_loop_time(sec) = [expr $time_step*$n_step*$after_loop_time/1000]"
 puts "after_cond_del_time(sec) = [expr $time_step*$n_step*$after_cond_del_time/1000]"
+puts "msd_calculation_time(sec) = [expr $time_step*$n_step*$msd_calculation_time/10000]"
 
 
 
@@ -98,16 +100,16 @@ constraint cylinder center 0.0 0.0 0.0 axis 0.0 0.0 1.0 radius 16.0 length 40.0 
 #######################
 #  MSD  Calculations  #
 #######################
-proc msd {para1 para2 para3 para4 l_poly} { 
-    set msd_file [open "MSD0_$para1$para2$para3$para4" "a"]
-    set msd [analyze g123 0 1 $l_poly]  ;  puts $msd_file "$para4  [lindex $msd 0]"  ;  close $msd_file  }
+proc msd {para l_poly ti} { 
+    set msd_file [open "MSD0$para" "a"]
+    set msd [analyze g123 0 1 $l_poly]  ;  puts $msd_file "$ti  [lindex $msd 0]*0.0004"  ;  close $msd_file  }
 
 
 ##########################
 #   MSD of peri & core   #
 ##########################
-proc msd2 {para1 para2 para3 para4 para5 l_poly} { 
-    set cfile [open "cfile$para1$para2$para3$para5"]
+proc msd2 {para l_poly ti} { 
+    set cfile [open "cfile$para"]
     gets $cfile conf
 
     set pid 0  ;  set msd0 0.0  ;  set msd1 0.0  ;  set msd2 0.0
@@ -120,8 +122,8 @@ proc msd2 {para1 para2 para3 para4 para5 l_poly} {
         incr pid }
 
     set msd0 [expr $msd0 / 2500]  ;  set msd1 [expr $msd1 / 2500]
-    set msd_file [open "000MAESHIMA/MSD/MSD1_$para1$para2$para3$para4" "a"]  ;  puts $msd_file "$para4  $msd0"  ;  close $msd_file
-    set msd_file [open "000MAESHIMA/MSD/MSD2_$para1$para2$para3$para4" "a"]  ;  puts $msd_file "$para4  $msd1"  ;  close $msd_file
+    set msd_file [open "MSD1$para" "a"]  ;  puts $msd_file "$ti/100.0  $msd0*0.0004"  ;  close $msd_file
+    set msd_file [open "MSD2$para" "a"]  ;  puts $msd_file "$ti/100.0  $msd1*0.0004"  ;  close $msd_file
 }
 
 
@@ -173,9 +175,6 @@ while { $pid < $n_cond } { set pid_c [ expr $pid + $l_poly ]
 puts "Warmup start"
 set min 0  ;  set cap 10  ;  set rcap 1000
 while { $cap <= $rcap } { inter forcecap $cap  ;  integrate 10  ;  set min [analyze mindist]  ;  incr cap 10 }
-puts "Warmup finished. Minimal distance now $min"
-#inter forcecap individual
-
 
 set vtf_data [open "test000.dat" "w"] ; writevcf $vtf_data ; close $vtf_data
 
@@ -188,17 +187,17 @@ if { $loop_extrusion == 1 } {
 
 set loop_step 1000
 
-set bond_j 1
-while { $bond_j <=[expr $l_loop/2] } {
+set loop_i 1
+while { $loop_i <= [expr $l_loop/2 - 1] } {
 
-    set pid 0
 
 #############################
 #   condensin step forward  #
 #############################
+    set pid 0
     while { $pid < $n_cond } { 
 	set half [expr int( ($pid + 0.5)*$l_loop )]
-	set pls [expr $half + $bond_j]  ;  set mns [expr $half - $bond_j]
+	set pls [expr $half + $loop_i]  ;  set mns [expr $half - $loop_i]
 	part [expr $pid + $l_poly] bond delete
 	part [expr $pid + $l_poly] bond $HARM_c $mns  ;  part [expr $pid + $l_poly] bond $HARM_c $pls
 	incr pid }
@@ -207,9 +206,9 @@ while { $bond_j <=[expr $l_loop/2] } {
     integrate $loop_step
 
     set vtf_file [open "test.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
-    puts "bond_j = $bond_j"
+    puts "loop_length = $loop_i"
     
-    incr bond_j }
+    incr loop_i }
 
 ######################################
 #  condensin base position of loops  #
@@ -225,7 +224,7 @@ integrate $loop_step
 
 
 set vtf_file [open "test.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
-puts "bond_j = $bond_j"
+puts "loop_length = $loop_i"
 
 }
 
@@ -234,8 +233,8 @@ puts "bond_j = $bond_j"
 ####################
 #  Thermarization  #
 ####################
-set i 0
-while { $i < $after_loop_time } { integrate $n_step  ;  puts "$i"
+set i 1
+while { $i <= $after_loop_time } { integrate $n_step  ;  puts "after_cond_del_time = $i"
     set vtf_file [open "test.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     incr i  }
 
@@ -253,8 +252,7 @@ while { $pid < $n_cond } { part [expr $pid + $l_poly] delete  ;  incr pid }
 #  Thermarization  #
 ####################
 set i 1
-puts "after_cond_del_time"
-while { $i <= $after_cond_del_time } { integrate $n_step  ;  puts "$i"
+while { $i <= $after_cond_del_time } { integrate $n_step  ;  puts "after_cond_del_time = $i"
     set vtf_file [open "test.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     incr i  }
 
@@ -263,22 +261,22 @@ while { $i <= $after_cond_del_time } { integrate $n_step  ;  puts "$i"
 #  Thermalization  #
 ####################
 analyze g123 -init 0 1 $l_poly
-set data [open "cfile$para1$para2$para3$para4" "w"] ; writevcf $data ; close $data
-msd $para1 $para2 $para3 0 $l_poly
-msd2 $para1 $para2 $para3 0 $para4 $l_poly
+set data [open "cfile$para" "w"] ; writevcf $data ; close $data
+msd $para $l_poly 0
+msd2 $para $l_poly 0
 
 set i 1
 puts "MSD calculation"
-while { $i <= $msd_time } { integrate [expr $n_step/10]  ;  puts "$i"
+while { $i <= $msd_calculation_time } { integrate [expr $n_step/10]  ;  puts "MSD calculation time = $i"
     set vtf_file [open "test.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     set vtf_data [open "test$i.dat" "w"] ; writevcf $vtf_data ; close $vtf_data
-    msd $para1 $para2 $para3 $i $l_poly
-    msd2 $para1 $para2 $para3 $i $para4 $l_poly
+    msd $para $l_poly $i
+    msd2 $para $l_poly $i
     incr i }
 
 ################################
 #  Store final configurations  #
 ################################
-set vtf_final [open "final_poly$para1$para2$para3$para4" "w"]
+set vtf_final [open "final$para" "w"]
 writevcf $vtf_final
 close $vtf_final
