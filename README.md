@@ -18,8 +18,7 @@ The tcl file "chromatin_motion.tcl" is the executable for the MD simulation.
 The file "polymer.init" is the initial coordination file for chromatins and condensins.
 
 One calculation usually takes several hours.\
-An example output is shown in the "test.vtf" file, \
-where the first, second, and third columns are s, x-coordinates, and y-coordinates, respectively.
+An example output is shown in the "test.vtf" file, where the first, second, and third columns are x, y, and z-coordinates of each chromatin, respectively.
 
 Since the code is written in Fortran, it should be executed on a machine with a Fortran compiler installed.
 
