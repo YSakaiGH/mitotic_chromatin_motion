@@ -6,19 +6,18 @@ Kazuhiro Maeshima
 
 ## Code to calculate molecular dynamics of coase-grained chromatins composing mitotic chromosomes
 
-This Code is used in the molecular dynamics simulation of coase-grained chromatins composing mitotic chromosomes. \
+This Code is used in the molecular dynamics (MD) simulation of coase-grained chromatins composing mitotic chromosomes. \
 Figures 5 and Movie S3-S5 in the paper were calculated using this code.
 
 Extensible Simulation Package for Research on Soft Matter (ESPResSo) [1] is an MD package, which features a broad range of interaction potentials. 
-ESPResSo has been used as an MD simulator in this study as in our previous works [2,3].
+ESPResSo is used as an MD simulator in this study as in our previous works [2,3].
 
 MD time evolution programs of ESPResSo are written in C. The scripting language, Tcl, provides the interface between the user and the simulation engine. Therefore, the user may interact with the parallelized package core, as well as modify simulation parameters during runtime via Tcl commands. 
 
+The tcl file "chromatin_motion.tcl" is the executable for the MD simulation.
+The file "polymer.init" is the initial coordination file for chromatins and condensins.
 
-
-The membrane shape is determined from the elastic bending energy using the Euler-Lagrange equation (S3).\
-Eq. (S3) is solved under the boundary conditions (S4)-(S5) to obtain the membrane coordinates (X, Z) at each s.\
-A calculation with one fixed boundary conditions takes roughly a few minutes.\
+One calculation usually takes several hours.\
 An example output is shown in the output.dat file, \
 where the first, second, and third columns are s, x-coordinates, and y-coordinates, respectively.
 
