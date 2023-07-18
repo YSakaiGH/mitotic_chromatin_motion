@@ -24,10 +24,7 @@ mpirun -np 1 ./Espresso condensin00.tcl
 
 
 One calculation usually takes several hours.\
-An example output is shown in the "test.vtf" file, where the first, second, and third columns are x, y, and z-coordinates of each chromatin, respectively.
-
-Since the code is written in Fortran, it should be executed on a machine with a Fortran compiler installed.
-
+An example output is shown in the "test.vtf" file, which is the Cartesian coordinates of each of the 5000 chromatins.
 
 
 1. ESPResSo on Github; https://github.com/espressomd/espresso.
