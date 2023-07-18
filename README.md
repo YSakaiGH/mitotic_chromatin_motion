@@ -26,7 +26,7 @@ Since the code is written in Fortran, it should be executed on a machine with a 
 
 
 
-[1] https://github.com/espressomd/espresso
+[1] https://github.com/espressomd/espresso \
 [2] Y. Sakai, M. Tachikawa, A. Mochizuki, Controlling segregation speed of entangled polymers by the shapes: A simple model for eukaryotic chromosome segregation
 hys. Rev. E 94, 042403 
 
