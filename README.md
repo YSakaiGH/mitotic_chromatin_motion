@@ -24,3 +24,9 @@ An example output is shown in the "test.vtf" file, where the first, second, and 
 
 Since the code is written in Fortran, it should be executed on a machine with a Fortran compiler installed.
 
+
+
+[1] https://github.com/espressomd/espresso
+[2] Y. Sakai, M. Tachikawa, A. Mochizuki, Controlling segregation speed of entangled polymers by the shapes: A simple model for eukaryotic chromosome segregation
+hys. Rev. E 94, 042403 
+
