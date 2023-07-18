@@ -10,9 +10,11 @@ This Code is used in the molecular dynamics (MD) simulation of coase-grained chr
 Figures 5 and Movie S3-S5 in the paper were calculated using this code.
 
 Extensible Simulation Package for Research on Soft Matter (ESPResSo) [1] is an MD package, which features a broad range of interaction potentials. 
-ESPResSo is used as an MD simulator in this study as in our previous works [2,3].
+ESPResSo is used as an MD simulator in this study as in our previous works [2-4].
 
 MD time evolution programs of ESPResSo are written in C. The scripting language, Tcl, provides the interface between the user and the simulation engine. Therefore, the user may interact with the parallelized package core, as well as modify simulation parameters during runtime via Tcl commands. 
+Detailed guide to ESPResSo is found in the papers [1,4].
+
 
 The tcl file "chromatin_motion.tcl" is the executable for the MD simulation.
 The file "polymer.init" is the initial coordination file for chromatins and condensins.
