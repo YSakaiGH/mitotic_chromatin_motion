@@ -1,4 +1,4 @@
-# Mathematical modeling of standard shapes of forming autophagosomes
+Single-nucleosome imaging unveils condensin and nucleosome-nucleosome interactions constrain chromatin to organize mitotic chromosomes.
 
 Yuji Sakai, Satoru Takahashi, Ikuko Koyama-Honda, Chieko Saito, Noboru Mizushima
 
