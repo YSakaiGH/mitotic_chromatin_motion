@@ -1,12 +1,20 @@
 # Single-nucleosome imaging unveils condensin and nucleosome-nucleosome interactions constrain chromatin to organize mitotic chromosomes.
 
-Yuji Sakai, Satoru Takahashi, Ikuko Koyama-Honda, Chieko Saito, Noboru Mizushima
+Kayo Hibino, Sachiko Tamura, Yuji Sakai, Masatoshi Takagi, Masa A. Shimazoe, Toyoaki Natsume, Masato Kanemaki, Naoko Imamoto, 
+Kazuhiro Maeshima
 
-## Code to calculate stable membrane shapes
 
-This Code is used in the model calculations to determine the membrane shapes in the paper,\
-https://www.biorxiv.org/content/10.1101/2022.07.20.500884v1. \
-Figures 6, 7 and S3 in the paper were calculated using this code.
+## Code to calculate molecular dynamics of coase-grained chromatins composing mitotic chromosomes
+
+This Code is used in the molecular dynamics simulation of coase-grained chromatins composing mitotic chromosomes. \
+Figures 5 and Movie S3-S5 in the paper were calculated using this code.
+
+Extensible Simulation Package for Research on Soft Matter (ESPResSo) [1] is an MD package, which features a broad range of interaction potentials. 
+ESPResSo has been used as an MD simulator in this study as in our previous works [2,3].
+
+MD time evolution programs of ESPResSo are written in C. The scripting language, Tcl, provides the interface between the user and the simulation engine. Therefore, the user may interact with the parallelized package core, as well as modify simulation parameters during runtime via Tcl commands. 
+
+
 
 The membrane shape is determined from the elastic bending energy using the Euler-Lagrange equation (S3).\
 Eq. (S3) is solved under the boundary conditions (S4)-(S5) to obtain the membrane coordinates (X, Z) at each s.\
