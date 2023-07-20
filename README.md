@@ -25,7 +25,7 @@ Execute at the command prompt with the following command;\
 
 One calculation usually takes several hours.\
 Four output files are generated when the calculation is run.\
-One is the "polymer.vtf" file, which is a time series of Cartesian coordinates for each of the 5000 chromatins.\
+One is the "polymer.vtf" file, which is a time series of Cartesian coordinates for each of the 5000 chromatins, which can be visualized in vmd or PyMOL.\
 The others are the "MSD0", "MSD1", and "MSD2" file, which is the mean squared displacement of nucleosomes in the overall, axial, and peripheral regions, respectively.
 
 
