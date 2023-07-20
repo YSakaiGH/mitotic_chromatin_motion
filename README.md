@@ -17,6 +17,7 @@ Detailed guide to ESPResSo is found in the papers [1,4].
 
 
 The tcl file "chromatin_motion.tcl" is the executable for the MD simulation.\
+
 The file "polymer.init" is the initial coordination file for chromatins and condensins.
 
 Execute at the command prompt with the following command;\
