@@ -20,7 +20,7 @@ The tcl file "chromatin_motion.tcl" is the executable for the MD simulation.
 The file "polymer.init" is the initial coordination file for chromatins and condensins.
 
 Execute at the command prompt with the following command;\
-./Espresso condensin00.tcl
+./Espresso chromatin_motion.tcl
 
 
 One calculation usually takes several hours.\
