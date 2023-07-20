@@ -24,7 +24,7 @@ Execute at the command prompt with the following command;\
 
 
 One calculation usually takes several hours.\
-An example output is shown in the "test.vtf" file, which is the Cartesian coordinates of each of the 5000 chromatins.
+An example output is shown in the "polymer.vtf" file, which is the Cartesian coordinates of each of the 5000 chromatins.
 
 
 1. ESPResSo on Github; https://github.com/espressomd/espresso.
