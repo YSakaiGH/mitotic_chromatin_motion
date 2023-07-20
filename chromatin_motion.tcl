@@ -142,8 +142,8 @@ while { $pid < $n_cond } { set posi [ part [expr $pid*$l_loop] print pos ]
     incr pid }
 
 
-set vtf_file [open "poly$para.vtf" "w"]  ;  writevsf $vtf_file  ;  close $vtf_file
-set vtf_file [open "poly$para.vtf" "a"]  ;  writevcf $vtf_file  ;  close $vtf_file
+set vtf_file [open "polymer$para.vtf" "w"]  ;  writevsf $vtf_file  ;  close $vtf_file
+set vtf_file [open "polymer$para.vtf" "a"]  ;  writevcf $vtf_file  ;  close $vtf_file
 
 
 ###########################
@@ -189,7 +189,7 @@ while { $loop_len <= [expr $l_loop/2 - 1] } {
 #########################
     integrate $loop_step
 
-    set vtf_file [open "poly$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
+    set vtf_file [open "polymer$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     puts "loop_len = $loop_len"
     
     incr loop_len }
@@ -210,7 +210,7 @@ while { $pjd < $n_poly } {
 integrate $loop_step
 
 
-set vtf_file [open "poly$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
+set vtf_file [open "polymer$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
 puts "loop_len = $loop_len"
 }
 
@@ -223,7 +223,7 @@ puts "######################################################################"
 set i 1
 while { $i <= $after_loop_time } { integrate $n_step
     puts "after_loop_time(sec) = [expr $time_step*$n_step*$i/1000]"
-    set vtf_file [open "poly$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
+    set vtf_file [open "polymer$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     incr i  }
 
 
@@ -243,7 +243,7 @@ puts "######################################################################"
 set i 1
 while { $i <= $after_cond_del_time } { integrate $n_step
     puts "after_cond_del_time(sec) = [expr $time_step*$n_step*$i/1000]"
-    set vtf_file [open "poly$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
+    set vtf_file [open "polymer$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     incr i  }
 
 
@@ -258,15 +258,6 @@ set i 1
 puts "MSD calculation"
 while { $i <= $msd_calculation_time } { integrate [expr $n_step/10]
     puts "MSD calculation time(sec) = [expr $time_step*$n_step*$i/10000]"
-    set vtf_file [open "poly$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
+    set vtf_file [open "polymer$para.vtf" "a"] ; writevcf $vtf_file ; close $vtf_file
     msd $para $l_poly $i
     incr i }
-
-
-################################
-#  Store final configurations  #
-################################
-puts "######################################################################"
-set vtf_final [open "poly$para.final" "w"]
-writevcf $vtf_final
-close $vtf_final
